@@ -1,5 +1,6 @@
-export const CREATE_MAP = 'CREATE_MAP';
-export const UPDATE_MAP = 'UPDATE_MAP';
+export const MAP_CREATE = 'MAP_CREATE';
+export const MAP_ADD_CREATURE = 'MAP_ADD_CREATURE';
+export const MAP_STEP = 'MAP_STEP';
 
 export const createMap = (width, height, value = 0) => {
     const result = [];
@@ -11,14 +12,20 @@ export const createMap = (width, height, value = 0) => {
         result.push(tmp);
     }
     return {
-        type: CREATE_MAP,
+        type: MAP_CREATE,
         payload: result,
     };
 };
 
 export const addCreature = (x, y, type) => {
     return {
-        type: UPDATE_MAP,
+        type: MAP_ADD_CREATURE,
         payload: {x, y, type},
+    };
+};
+
+export const step = () => {
+    return {
+        type: MAP_STEP,
     };
 };

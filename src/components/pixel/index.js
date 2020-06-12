@@ -17,6 +17,7 @@ export const Pixel = (props) => {
                 setType(styles.food);
                 break;
             default:
+                setType();
                 break;
         }
     }, [props]);

@@ -1,0 +1,13 @@
+.root {
+    padding: 10px;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid__row {
+    display: flex;
+    flex-direction: row;
+}

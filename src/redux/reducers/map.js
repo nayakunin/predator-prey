@@ -30,7 +30,10 @@ export const map = (state = initialState, action) => {
             state.nextMap[action.payload.x][action.payload.y] = action.payload.type;
             return {
                 ...state,
-                preysCount: action.payload.type === 'prey' ? state.preysCount + 1 : state.preysCount,
+                preysCount:
+                    action.payload.type === 'prey'
+                        ? state.preysCount + 1
+                        : state.preysCount,
                 currentMap: copy(state.nextMap),
                 nextMap: state.nextMap,
             }
@@ -44,7 +47,7 @@ export const map = (state = initialState, action) => {
                             state.nextMap[col][row] = 'empty';
                             deltaPreys--;
                         } else {
-                            switch(newPoses.length) {
+                            switch (newPoses.length) {
                                 case 2:
                                     newPoses.forEach((pos) => {
                                         state.nextMap[pos[0]][pos[1]] = 'prey';
@@ -62,11 +65,11 @@ export const map = (state = initialState, action) => {
                     }
                 });
             });
-            console.log(state.preysCount);
             return {
                 ...state,
                 iteration: state.iteration + 1,
-                preysCount: state.preysCount + deltaPreys,
+                preysCount:
+                    state.preysCount + deltaPreys,
                 currentMap: copy(state.nextMap),
                 nextMap: state.nextMap,
             };

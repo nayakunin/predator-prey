@@ -1,8 +1,7 @@
 .root {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    outline: 1px solid rgb(195, 231, 231);
+    width: 25px;
+    height: 25px;
+    outline: 1px solid #2a9d9086;
     content: '';
 }
 
@@ -18,9 +17,9 @@
 }
 
 .prey {
-    background-color: rgb(199, 240, 160);
+    background-color: #e9c46a;
 }
 
 .predator {
-    background-color: black;
+    background-color: #e76f51;
 }

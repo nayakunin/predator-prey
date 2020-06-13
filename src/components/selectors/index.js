@@ -1,51 +1,48 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { mapSelector } from '../../redux/selectors';
 import cx from 'classnames';
 import Button from '@material-ui/core/Button';
 import { Slider } from '../slider';
 import { withStyles } from '@material-ui/core';
-
-const styles = {
-    root: {
-        padding: '0 15px',
-        width: 'calc(100% - 30px)',
-    },
-    button_apply: {
-        backgroundColor: '#52af77',
-        color: 'rgb(241, 241, 241)',
-    },
-    container: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '30px',
-    },
-    section: {
-
-    },
-    section_title: {
-        margin: '0 0 10px',
-    },
-    selectors_container: {
-        padding: '0 15px',
-    },
-    section_subtitle: {
-        margin: 0,
-        display: 'inline',
-        marginRight: '5px',
-    },
-    row: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: '5px',
-    },
-    button_container: {
-        marginTop: '10px',
-    },
-};
+import { changeMapParams, changeSpeed, restart } from '../../redux/actions';
+import {
+    MAX_MAP_WIDTH,
+    MIN_MAP_WIDTH,
+    MAX_MAP_HEIGHT,
+    MIN_MAP_HEIGHT,
+    MAX_MAP_SPEED,
+    MIN_MAP_SPEED,
+    INIT_WIDTH,
+    INIT_HEIGHT,
+    INIT_X,
+    INIT_Y,
+    INIT_SPEED,
+} from '../../constants';
+import styles from './styles';
 
 export const Selectors = withStyles(styles)(
     (props) => {
         const { classes, className } = props;
+        const dispatch = useDispatch();
+        const mapState = useSelector(mapSelector);
+        const [size, setSize] = useState(mapState.size);
+        const [start, setStart] = useState(mapState.start);
+        const [speed, setSpeed] = useState(mapState.speed);
+
+        const handleApply = useCallback(() => {
+            if (mapState.size.width !== size.width
+                || mapState.size.height !== size.height
+                || mapState.start.x !== start.x
+                || mapState.start.y !== start.y) {
+                dispatch(changeMapParams(size, start, speed))
+            } else if (mapState.speed !== speed) {
+                dispatch(changeSpeed(speed));
+            } else {
+                dispatch(restart());
+            }
+        }, [dispatch, size, start, speed, mapState]);
+
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
@@ -55,37 +52,40 @@ export const Selectors = withStyles(styles)(
                             <div className={classes.row}>
                                 <h5 className={classes.section_subtitle}>Ширина:</h5>
                                 <Slider
-                                    defaultValue={35}
+                                    defaultValue={INIT_WIDTH}
                                     getAriaValueText={value => value}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
                                     step={1}
-                                    min={10}
-                                    max={35}
+                                    min={MIN_MAP_WIDTH}
+                                    max={MAX_MAP_WIDTH}
+                                    onChange={(_, value) => setSize((prev) => ({ ...prev, width: value }))}
                                 />
                             </div>
                             <div className={classes.row}>
                                 <h5 className={classes.section_subtitle}>Высота:</h5>
                                 <Slider
-                                    defaultValue={35}
+                                    defaultValue={INIT_HEIGHT}
                                     getAriaValueText={value => value}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
                                     step={1}
-                                    min={10}
-                                    max={35}
+                                    min={MIN_MAP_HEIGHT}
+                                    max={MAX_MAP_HEIGHT}
+                                    onChange={(_, value) => setSize((prev) => ({ ...prev, height: value }))}
                                 />
                             </div>
                             <div className={classes.row}>
                                 <h5 className={classes.section_subtitle}>Скорость в&nbsp;секундах:</h5>
                                 <Slider
-                                    defaultValue={0.7}
+                                    defaultValue={INIT_SPEED}
                                     getAriaValueText={value => value}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
                                     step={0.2}
-                                    min={0.3}
-                                    max={2}
+                                    min={MIN_MAP_SPEED}
+                                    max={MAX_MAP_SPEED}
+                                    onChange={(_, value) => setSpeed(value * 1000)}
                                 />
                             </div>
                         </div>
@@ -96,32 +96,38 @@ export const Selectors = withStyles(styles)(
                             <div className={classes.row}>
                                 <h5 className={classes.section_subtitle}>Ось&nbsp;X:</h5>
                                 <Slider
-                                    defaultValue={30}
+                                    defaultValue={INIT_X}
                                     getAriaValueText={value => value}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
                                     step={1}
-                                    min={10}
-                                    max={30}
+                                    min={0}
+                                    max={size.width}
+                                    onChange={(_, value) => setStart((prev) => ({ ...prev, x: value }))}
                                 />
                             </div>
                             <div className={classes.row}>
                                 <h5 className={classes.section_subtitle}>Ось&nbsp;Y:</h5>
                                 <Slider
-                                    defaultValue={30}
+                                    defaultValue={INIT_Y}
                                     getAriaValueText={value => value}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
                                     step={1}
-                                    min={10}
-                                    max={30}
+                                    min={0}
+                                    max={size.height}
+                                    onChange={(_, value) => setStart((prev) => ({ ...prev, y: value }))}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={classes.button_container}>
-                    <Button className={cx(classes.button_apply, className)}>Перезапустить</Button>
+                    <Button
+                        className={cx(classes.button_apply, className)}
+                        onClick={handleApply}>
+                            Применить
+                    </Button>
                 </div>
             </div >
         )

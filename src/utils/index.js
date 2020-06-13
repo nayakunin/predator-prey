@@ -22,13 +22,13 @@ export const getNewPos = (x, y, map) => {
     if (y > 0 && map[x][y - 1] === 'empty') {
         possibleMoves.push([x, y - 1]);
     }
-    if (x + 1< mapWidth && map[x + 1][y] === 'empty') {
+    if (x + 1 < mapWidth && map[x + 1][y] === 'empty') {
         possibleMoves.push([x + 1, y]);
     }
-    if (y + 1< mapHeight && map[x][y + 1] === 'empty') {
+    if (y + 1 < mapHeight && map[x][y + 1] === 'empty') {
         possibleMoves.push([x, y + 1]);
     }
-    if (x > 0 && map[x-1][y] === 'empty') {
+    if (x > 0 && map[x - 1][y] === 'empty') {
         possibleMoves.push([x - 1, y]);
     }
     // new prey

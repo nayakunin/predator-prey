@@ -1,9 +1,10 @@
 import {
     MAP_ADD_CREATURE,
     MAP_STEP,
-    MAP_CHANGE_SIZE,
+    MAP_CHANGE_PARAMS,
     MAP_INIT,
     MAP_RESTART,
+    MAP_CHANGE_SPEED,
 } from '../actions'
 
 import {
@@ -17,8 +18,15 @@ const initialState = {
     preysCount: 0,
     chartData: [0],
     chartLabels: ['0'],
-    width: 35,
-    height: 35,
+    size: {
+        width: 26,
+        height: 26,
+    },
+    start: {
+        x: 13,
+        y: 13,
+    },
+    speed: 1000,
     currentMap: [],
     nextMap: [],
     isMapCreated: false,
@@ -28,30 +36,31 @@ export const map = (state = initialState, action) => {
     switch (action.type) {
         case MAP_INIT:
         case MAP_RESTART:
-            const initialMap = generate2dArray(state.width, state.height);
+            const initialMap = generate2dArray(state.size.width, state.size.height);
             return {
                 ...state,
                 iteration: 0,
                 preysCount: 0,
+                chartData: [0],
+                chartLabels: ['0'],
                 currentMap: copy(initialMap),
                 nextMap: initialMap,
                 isMapCreated: true,
             };
-        case MAP_CHANGE_SIZE:
-            const { width, height } = action.payload;
-            const newMap = generate2dArray(width, height);
+        case MAP_CHANGE_PARAMS:
             return {
                 ...state,
                 iteration: 0,
                 preysCount: 0,
-                width: action.payload.width,
-                height: action.payload.height,
-                currentMap: copy(newMap),
-                nextMap: newMap,
-                isMapCreated: true,
+                size: action.payload.size,
+                start: action.payload.start ? action.payload.start : state.start,
+                speed: action.payload.speed ? action.payload.speed : state.speed,
+                currentMap: [],
+                nextMap: [],
+                isMapCreated: false,
             }
         case MAP_ADD_CREATURE:
-            state.nextMap[action.payload.x][action.payload.y] = action.payload.type;
+            state.nextMap[action.payload.start.x][action.payload.start.y] = action.payload.type;
             return {
                 ...state,
                 preysCount:
@@ -98,6 +107,12 @@ export const map = (state = initialState, action) => {
                 currentMap: copy(state.nextMap),
                 nextMap: state.nextMap,
             };
+        case MAP_CHANGE_SPEED:
+            console.log('pidr');
+            return {
+                ...state,
+                speed: action.payload.speed,
+            }
         default:
             return state;
     };

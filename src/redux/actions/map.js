@@ -1,8 +1,9 @@
 export const MAP_ADD_CREATURE = 'MAP_ADD_CREATURE';
 export const MAP_STEP = 'MAP_STEP';
-export const MAP_CHANGE_SIZE = 'MAP_CHANGE_SIZE';
+export const MAP_CHANGE_PARAMS = 'MAP_CHANGE_PARAMS';
 export const MAP_INIT = 'MAP_INIT';
 export const MAP_RESTART = 'MAP_RESTART';
+export const MAP_CHANGE_SPEED = 'MAP_CHANGE_SPEED';
 
 export const initMap = () => {
     return {
@@ -10,10 +11,10 @@ export const initMap = () => {
     };
 };
 
-export const addCreature = (x, y, type) => {
+export const addCreature = (start, type) => {
     return {
         type: MAP_ADD_CREATURE,
-        payload: {x, y, type},
+        payload: {start, type},
     };
 };
 
@@ -29,12 +30,22 @@ export const restart = () => {
     }
 }
 
-export const changeMapSize = (width, height) => {
+export const changeMapParams = (size, start, speed) => {
     return {
-        type: MAP_CHANGE_SIZE,
+        type: MAP_CHANGE_PARAMS,
         payload: {
-            width,
-            height,
+            size,
+            start,
+            speed,
+        },
+    };
+};
+
+export const changeSpeed = (speed) => {
+    return {
+        type: MAP_CHANGE_SPEED,
+        payload: {
+            speed,
         },
     };
 };

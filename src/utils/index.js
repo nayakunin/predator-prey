@@ -1,5 +1,9 @@
 import _ from 'lodash';
 
+const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 export const generate2dArray = (width, height, value = 'empty') => {
     const result = [];
     for (let i = 0; i < height; i++) {
@@ -9,6 +13,7 @@ export const generate2dArray = (width, height, value = 'empty') => {
         }
         result.push(tmp);
     }
+    result[getRandomInt(width)][getRandomInt(height)] = 'prey';
     return result;
 }
 

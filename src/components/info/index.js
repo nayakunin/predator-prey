@@ -13,8 +13,8 @@ export const Info = (props) => {
             setPreysAvg(
                 mapState.chartData.slice(-100, -1)
                     .reduce((sum, curr) => sum + curr)
-                    / mapState.chartData.length < 100
-                    ? mapState.chartData.length : 100);
+                    / (mapState.chartData.length < 100
+                    ? mapState.chartData.length : 100));
         }
     }, [mapState.chartData]);
 

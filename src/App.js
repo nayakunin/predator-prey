@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { initMap, addCreature, step } from './redux/actions';
+import { initMap, step } from './redux/actions';
 import { Map } from './components/map';
 import { Selectors } from './components/selectors';
 import { Header } from './components/header';
@@ -22,7 +22,6 @@ export const App = (props) => {
         } else {
             // Init map
             dispatch(initMap());
-            dispatch(addCreature(mapState.start, 'prey'));
         }
     }, [dispatch, mapState]);
 

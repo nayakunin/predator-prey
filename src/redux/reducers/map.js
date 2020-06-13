@@ -1,7 +1,5 @@
 import {
-    MAP_ADD_CREATURE,
     MAP_STEP,
-    MAP_CHANGE_PARAMS,
     MAP_INIT,
     MAP_RESTART,
     MAP_CHANGE_SPEED,
@@ -13,23 +11,32 @@ import {
     generate2dArray,
 } from '../../utils';
 
+import {
+    INIT_WIDTH,
+    INIT_HEIGHT,
+    INIT_X,
+    INIT_Y,
+    INIT_SPEED,
+} from '../../constants';
+
 const initialState = {
     iteration: 0,
     preysCount: 0,
     chartData: [0],
     chartLabels: ['0'],
     size: {
-        width: 26,
-        height: 26,
+        width: INIT_WIDTH,
+        height: INIT_HEIGHT,
     },
     start: {
-        x: 13,
-        y: 13,
+        x: INIT_X,
+        y: INIT_Y,
     },
-    speed: 1000,
+    speed: INIT_SPEED,
     currentMap: [],
     nextMap: [],
     isMapCreated: false,
+    isMapEmpty: true,
 };
 
 export const map = (state = initialState, action) => {
@@ -47,29 +54,6 @@ export const map = (state = initialState, action) => {
                 nextMap: initialMap,
                 isMapCreated: true,
             };
-        case MAP_CHANGE_PARAMS:
-            return {
-                ...state,
-                iteration: 0,
-                preysCount: 0,
-                size: action.payload.size,
-                start: action.payload.start ? action.payload.start : state.start,
-                speed: action.payload.speed ? action.payload.speed : state.speed,
-                currentMap: [],
-                nextMap: [],
-                isMapCreated: false,
-            }
-        case MAP_ADD_CREATURE:
-            state.nextMap[action.payload.start.x][action.payload.start.y] = action.payload.type;
-            return {
-                ...state,
-                preysCount:
-                    action.payload.type === 'prey'
-                        ? state.preysCount + 1
-                        : state.preysCount,
-                currentMap: copy(state.nextMap),
-                nextMap: state.nextMap,
-            }
         case MAP_STEP:
             let deltaPreys = 0;
             state.currentMap.forEach((col_arr, col) => {
@@ -108,7 +92,6 @@ export const map = (state = initialState, action) => {
                 nextMap: state.nextMap,
             };
         case MAP_CHANGE_SPEED:
-            console.log('pidr');
             return {
                 ...state,
                 speed: action.payload.speed,

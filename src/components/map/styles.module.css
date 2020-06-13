@@ -1,12 +1,9 @@
-.root {
-}
-
 .grid {
     display: flex;
     flex-direction: row;
 }
 
-.grid__column {
+.grid__row {
     display: flex;
     flex-direction: column;
 }

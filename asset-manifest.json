@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/predator-prey/static/css/main.52703923.chunk.css",
-    "main.js": "/predator-prey/static/js/main.d1fb99f4.chunk.js",
-    "main.js.map": "/predator-prey/static/js/main.d1fb99f4.chunk.js.map",
+    "main.css": "/predator-prey/static/css/main.96c0359e.chunk.css",
+    "main.js": "/predator-prey/static/js/main.fbf9395e.chunk.js",
+    "main.js.map": "/predator-prey/static/js/main.fbf9395e.chunk.js.map",
     "runtime-main.js": "/predator-prey/static/js/runtime-main.348ef123.js",
     "runtime-main.js.map": "/predator-prey/static/js/runtime-main.348ef123.js.map",
     "static/js/2.17029548.chunk.js": "/predator-prey/static/js/2.17029548.chunk.js",
     "static/js/2.17029548.chunk.js.map": "/predator-prey/static/js/2.17029548.chunk.js.map",
     "index.html": "/predator-prey/index.html",
-    "precache-manifest.7a144264ed9d407d9b6c1029088a8e1d.js": "/predator-prey/precache-manifest.7a144264ed9d407d9b6c1029088a8e1d.js",
+    "precache-manifest.ec64a69971a62485afbc2dbf30f956d6.js": "/predator-prey/precache-manifest.ec64a69971a62485afbc2dbf30f956d6.js",
     "service-worker.js": "/predator-prey/service-worker.js",
-    "static/css/main.52703923.chunk.css.map": "/predator-prey/static/css/main.52703923.chunk.css.map",
+    "static/css/main.96c0359e.chunk.css.map": "/predator-prey/static/css/main.96c0359e.chunk.css.map",
     "static/js/2.17029548.chunk.js.LICENSE.txt": "/predator-prey/static/js/2.17029548.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.348ef123.js",
     "static/js/2.17029548.chunk.js",
-    "static/css/main.52703923.chunk.css",
-    "static/js/main.d1fb99f4.chunk.js"
+    "static/css/main.96c0359e.chunk.css",
+    "static/js/main.fbf9395e.chunk.js"
   ]
 }

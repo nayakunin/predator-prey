@@ -13,15 +13,6 @@ body {
     max-width: 1440px;
 }
 
-.header {
-    height: 48px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
 .main {
     width: 100%;
     margin: auto;
@@ -30,23 +21,6 @@ body {
     gap: 15px;
 }
 
-.menu {
-    height: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-    margin: 0;
-}
-
-.menu__option {
-    height: 100%;
-    margin-left: 12px;
-    text-align: center;
-}
-
-.title {
-    margin: 0;
-}
 
 .map-container {
     position: relative;

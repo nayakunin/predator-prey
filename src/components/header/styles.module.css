@@ -1,0 +1,26 @@
+.header {
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.menu {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.menu__option {
+    height: 100%;
+    margin-left: 12px;
+    text-align: center;
+}
+
+.title {
+    margin: 0;
+}

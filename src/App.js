@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.css';
-import { Line } from 'react-chartjs-2';
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initMap, addCreature, step } from './redux/actions';
 import { Map } from './components/map';
 import { Selectors } from './components/selectors';
+import { Header } from './components/header';
+import { Chart } from './components/chart';
 
-const App = (props) => {
+export const App = (props) => {
     const dispatch = useDispatch();
     const mapState = useSelector(state => state.map);
 
@@ -28,14 +29,7 @@ const App = (props) => {
 
     return (
         <div className={styles.root}>
-            <header className={styles.header}>
-                <h1 className={styles.title}>Модель хищник-жертва</h1>
-                <ul className={styles.menu}>
-                    <li className={styles.menu__option}>Point1</li>
-                    <li className={styles.menu__option}>Point2</li>
-                    <li className={styles.menu__option}>Point3</li>
-                </ul>
-            </header>
+            <Header />
             <main className={styles.main}>
                 <section className={styles['map-container']}>
                     <Map
@@ -45,69 +39,9 @@ const App = (props) => {
                     />
                 </section>
                 <section className={styles['chart-container']}>
-                    <Line
-                        data={{
-                            labels: mapState.chartLabels,
-                            datasets: [
-                                {
-                                    label: 'Жертвы',
-                                    data: mapState.chartData,
-                                    backgroundColor: '#e9c46a',
-                                }
-                            ]
-                        }}
-                        options={{
-                            title: {
-                                display: true,
-                                text: 'Статистика',
-                                fontSize: 24,
-                                fontFamily: 'Roboto Mono',
-                                fontColor: 'rgb(241, 241, 241)',
-                            },
-                            legend: {
-                                display: true,
-                                labels: {
-                                    fontFamily: 'Roboto Mono',
-                                    fontColor: 'rgb(241, 241, 241)',
-                                },
-                            },
-                            scales: {
-                                yAxes: [{
-                                    gridLines: {
-                                        display: true,
-                                        color: 'rgba(241, 241, 241, 0.3)',
-                                    },
-                                    ticks: {
-                                        fontColor: 'rgb(241, 241, 241)',
-                                        fontFamily: 'Roboto Mono',
-                                    },
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: "Популяция",
-                                        fontColor: 'rgb(241, 241, 241)',
-                                        fontFamily: 'Roboto Mono',
-                                        fontSize: 16,
-                                    }
-                                }],
-                                xAxes: [{
-                                    gridLines: {
-                                        display: true,
-                                        color: 'rgb(241, 241, 241, 0.3)',
-                                    },
-                                    ticks: {
-                                        fontColor: 'rgb(241, 241, 241)',
-                                        fontFamily: 'Roboto Mono',
-                                    },
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: "Время существования модели",
-                                        fontColor: 'rgb(241, 241, 241)',
-                                        fontFamily: 'Roboto Mono',
-                                        fontSize: 16,
-                                    }
-                                }],
-                            }
-                        }}
+                    <Chart 
+                        data={mapState.chartData}
+                        labels={mapState.chartLabels}
                     />
                     <Selectors />
                 </section>
@@ -116,9 +50,3 @@ const App = (props) => {
 
     );
 }
-
-export default connect(
-    (state) => {
-        return state;
-    }
-)(App);

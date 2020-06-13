@@ -2,8 +2,7 @@ body {
     margin: 0;
     padding: 15px;
     width: calc(100vw - 30px);
-    height: calc(100vh - 30px);
-    background-color: #264653;
+    background-color: #1b323b;
     color: rgb(241, 241, 241);
     font-family: 'Roboto Mono', monospace;
 }
@@ -30,10 +29,26 @@ body {
     align-items: flex-start;
 }
 
-.chart-container {
+.stats-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     overflow-y: scroll;
+}
+
+.stats-block {
+    position: relative;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.stats-block::after {
+    position: absolute;
+    width: 100%;
+    background-color: rgba(241, 241, 241, 0.4);
+    height: 1px;
+    bottom: -20px;
+    left: 0;
+    content: '';
 }

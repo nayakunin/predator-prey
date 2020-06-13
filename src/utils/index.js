@@ -37,7 +37,11 @@ export const getNewPos = (x, y, map) => {
         possibleMoves.push([x - 1, y]);
     }
     // new prey
-    if (possibleMoves.length === 4) {
+    if (possibleMoves.length === 4
+        && map[x + 1][y + 1] === 'empty'
+        && map[x + 1][y - 1] === 'empty'
+        && map[x - 1][y - 1] === 'empty'
+        && map[x - 1][y + 1] === 'empty') {
         const newBabyPreyPos = _.sample(possibleMoves);
         return [newBabyPreyPos, [x, y]];
     }

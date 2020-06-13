@@ -32,7 +32,7 @@ const initialState = {
         x: INIT_X,
         y: INIT_Y,
     },
-    speed: INIT_SPEED,
+    speed: INIT_SPEED * 1000,
     currentMap: [],
     nextMap: [],
     isMapCreated: false,

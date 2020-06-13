@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/predator-prey/precache-manifest.c8feeb35bfbc658db5ba1f9505df0be9.js"
+  "/predator-prey/precache-manifest.9f1640da6a9d63807ab63b8b1c974c9a.js"
 );
 
 self.addEventListener('message', (event) => {

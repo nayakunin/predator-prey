@@ -1,5 +1,17 @@
 import _ from 'lodash';
 
+export const generate2dArray = (width, height, value = 'empty') => {
+    const result = [];
+    for (let i = 0; i < height; i++) {
+        const tmp = [];
+        for (let j = 0; j < width; j++) {
+            tmp.push(value);
+        }
+        result.push(tmp);
+    }
+    return result;
+}
+
 export const copy = (ar) => ar.map(a => [...a]);
 
 export const getNewPos = (x, y, map) => {

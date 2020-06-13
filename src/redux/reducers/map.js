@@ -1,17 +1,24 @@
 import {
-    MAP_CREATE,
     MAP_ADD_CREATURE,
     MAP_STEP,
+    MAP_CHANGE_SIZE,
+    MAP_INIT,
+    MAP_RESTART,
 } from '../actions'
 
 import {
     copy,
     getNewPos,
+    generate2dArray,
 } from '../../utils';
 
 const initialState = {
     iteration: 0,
     preysCount: 0,
+    chartData: [0],
+    chartLabel: ['0'],
+    width: 25,
+    height: 25,
     currentMap: [],
     nextMap: [],
     isMapCreated: false,
@@ -19,13 +26,30 @@ const initialState = {
 
 export const map = (state = initialState, action) => {
     switch (action.type) {
-        case MAP_CREATE:
+        case MAP_INIT:
+        case MAP_RESTART:
+            const initialMap = generate2dArray(state.width, state.height);
             return {
                 ...state,
-                currentMap: copy(action.payload),
-                nextMap: action.payload,
+                iteration: 0,
+                preysCount: 0,
+                currentMap: copy(initialMap),
+                nextMap: initialMap,
                 isMapCreated: true,
             };
+        case MAP_CHANGE_SIZE:
+            const { width, height } = action.payload;
+            const newMap = generate2dArray(width, height);
+            return {
+                ...state,
+                iteration: 0,
+                preysCount: 0,
+                width: action.payload.width,
+                height: action.payload.height,
+                currentMap: copy(newMap),
+                nextMap: newMap,
+                isMapCreated: true,
+            }
         case MAP_ADD_CREATURE:
             state.nextMap[action.payload.x][action.payload.y] = action.payload.type;
             return {
@@ -68,8 +92,9 @@ export const map = (state = initialState, action) => {
             return {
                 ...state,
                 iteration: state.iteration + 1,
-                preysCount:
-                    state.preysCount + deltaPreys,
+                preysCount: state.preysCount + deltaPreys,
+                chartLabel: [...state.chartLabel, `${state.iteration + 1}`],
+                chartData: [...state.chartData, state.preysCount + deltaPreys],
                 currentMap: copy(state.nextMap),
                 nextMap: state.nextMap,
             };

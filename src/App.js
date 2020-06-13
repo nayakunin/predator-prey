@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './App.module.css';
 import { Line } from 'react-chartjs-2';
 import { connect, useDispatch, useSelector } from "react-redux";
-import { createMap, addCreature, step } from './redux/actions';
+import { initMap, addCreature, step } from './redux/actions';
 import { Map } from './components/map';
 import { Selectors } from './components/selectors';
 
 const App = (props) => {
     const dispatch = useDispatch();
     const mapState = useSelector(state => state.map);
-    const [chartData, setChartData] = useState({
-        data: [0],
-        iteration: ['0'],
-    });
 
+    // Initiate map
     useEffect(() => {
-        dispatch(createMap(25, 25, 'empty'));
+        dispatch(initMap());
         dispatch(addCreature(2, 2, 'prey'));
     }, [dispatch]);
 
+    // World loop
     useEffect(() => {
         if (mapState.isMapCreated) {
             const interval = setInterval(() => {
@@ -27,15 +25,6 @@ const App = (props) => {
             return () => clearInterval(interval);
         }
     }, [dispatch, mapState.isMapCreated]);
-
-    useEffect(() => {
-        setChartData((prev) => {
-            return {
-                data: [...prev.data, mapState.preysCount],
-                iteration: [...prev.iteration, `${mapState.iteration}`],
-            };
-        });
-    }, [mapState.preysCount, mapState.iteration]);
 
     return (
         <div className={styles.root}>
@@ -58,11 +47,11 @@ const App = (props) => {
                 <section className={styles['chart-container']}>
                     <Line
                         data={{
-                            labels: chartData.iteration,
+                            labels: mapState.chartLabels,
                             datasets: [
                                 {
                                     label: 'Жертвы',
-                                    data: chartData.data,
+                                    data: mapState.chartData,
                                     backgroundColor: '#e9c46a',
                                 }
                             ]

@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/predator-prey/static/css/main.82c4b5e2.chunk.css",
-    "main.js": "/predator-prey/static/js/main.1dea8377.chunk.js",
-    "main.js.map": "/predator-prey/static/js/main.1dea8377.chunk.js.map",
+    "main.js": "/predator-prey/static/js/main.8a5710d0.chunk.js",
+    "main.js.map": "/predator-prey/static/js/main.8a5710d0.chunk.js.map",
     "runtime-main.js": "/predator-prey/static/js/runtime-main.348ef123.js",
     "runtime-main.js.map": "/predator-prey/static/js/runtime-main.348ef123.js.map",
-    "static/js/2.14d40650.chunk.js": "/predator-prey/static/js/2.14d40650.chunk.js",
-    "static/js/2.14d40650.chunk.js.map": "/predator-prey/static/js/2.14d40650.chunk.js.map",
+    "static/js/2.01fd8f9a.chunk.js": "/predator-prey/static/js/2.01fd8f9a.chunk.js",
+    "static/js/2.01fd8f9a.chunk.js.map": "/predator-prey/static/js/2.01fd8f9a.chunk.js.map",
     "index.html": "/predator-prey/index.html",
-    "precache-manifest.9f1640da6a9d63807ab63b8b1c974c9a.js": "/predator-prey/precache-manifest.9f1640da6a9d63807ab63b8b1c974c9a.js",
+    "precache-manifest.230fb7d8124682f66b1eab44530ff08d.js": "/predator-prey/precache-manifest.230fb7d8124682f66b1eab44530ff08d.js",
     "service-worker.js": "/predator-prey/service-worker.js",
     "static/css/main.82c4b5e2.chunk.css.map": "/predator-prey/static/css/main.82c4b5e2.chunk.css.map",
-    "static/js/2.14d40650.chunk.js.LICENSE.txt": "/predator-prey/static/js/2.14d40650.chunk.js.LICENSE.txt"
+    "static/js/2.01fd8f9a.chunk.js.LICENSE.txt": "/predator-prey/static/js/2.01fd8f9a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.348ef123.js",
-    "static/js/2.14d40650.chunk.js",
+    "static/js/2.01fd8f9a.chunk.js",
     "static/css/main.82c4b5e2.chunk.css",
-    "static/js/main.1dea8377.chunk.js"
+    "static/js/main.8a5710d0.chunk.js"
   ]
 }

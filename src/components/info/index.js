@@ -6,11 +6,26 @@ import styles from './styles.module.css';
 
 export const Info = (props) => {
     const mapState = useSelector(mapSelector);
-    const [preysAvg, setPreysAvg] = useState(0);
+    const [preysAvg, setPreysAvg] = useState(1);
+    const [predatorsAvg, setPredatorsAvg] = useState(1);
 
 
     useEffect(() => {
-    }, [mapState.preyData, mapState.predatorData]);
+        if (mapState.preyData.length > 1) {
+            setPreysAvg(
+                mapState.preyData.slice(-100, -1)
+                    .reduce((sum, curr) => sum + curr)
+                    / (mapState.preyData.length < 100
+                    ? mapState.preyData.length : 100));
+        }
+        if (mapState.predatorData.length > 1) {
+            setPredatorsAvg(
+                mapState.predatorData.slice(-100, -1)
+                    .reduce((sum, curr) => sum + curr)
+                    / (mapState.predatorData.length < 100
+                    ? mapState.predatorData.length : 100));
+        }
+    }, [mapState, setPreysAvg, setPredatorsAvg]);
 
     return (
         <div className={styles.root}>
@@ -21,7 +36,7 @@ export const Info = (props) => {
                 </li>
                 <li className={styles.option}>
                     <h4 className={styles.title}>Среднее количество хищников за последние 100 итераций:</h4>
-                    <p className={styles.value}>0</p>
+                    <p className={styles.value}>{predatorsAvg}</p>
                 </li>
                 <li className={styles.option}>
                     <h4 className={styles.title}>Площадь мира:</h4>

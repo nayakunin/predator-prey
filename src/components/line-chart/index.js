@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-export const Chart = ({ preys, predators, labels }) => {
+export const LineChart = ({ preys, predators, labels }) => {
     return (
         <Line
             data={{
@@ -20,13 +20,6 @@ export const Chart = ({ preys, predators, labels }) => {
                 ]
             }}
             options={{
-                title: {
-                    display: false,
-                    text: 'Статистика',
-                    fontSize: 24,
-                    fontFamily: 'Roboto Mono',
-                    fontColor: 'rgb(241, 241, 241)',
-                },
                 legend: {
                     display: true,
                     labels: {

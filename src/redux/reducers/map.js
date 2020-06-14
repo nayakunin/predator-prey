@@ -27,7 +27,7 @@ const initialState = {
     iteration: 0,
     preysCount: 0,
     predatorsCount: 0,
-    preyData: [0],
+    preyData: [1],
     predatorData: [0],
     chartLabels: ['0'],
     size: {

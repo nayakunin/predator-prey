@@ -5,7 +5,8 @@ import { initMap, step, addPredator } from './redux/actions';
 import { Map } from './components/map';
 import { Selectors } from './components/selectors';
 import { Header } from './components/header';
-import { Chart } from './components/chart';
+import { LineChart } from './components/line-chart';
+import { BarChart } from './components/bar-chart';
 import { Info } from './components/info';
 
 export const App = (props) => {
@@ -40,7 +41,7 @@ export const App = (props) => {
                 </section>
                 <section className={styles['stats-container']}>
                     <div className={styles['stats-block']}>
-                        <Chart
+                        <LineChart
                             preys={mapState.preyData}
                             predators={mapState.predatorData}
                             labels={mapState.chartLabels}

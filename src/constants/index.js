@@ -1,4 +1,4 @@
-export const MAX_MAP_SPEED = 4;
+export const MAX_MAP_SPEED = 2;
 export const MIN_MAP_SPEED = 0.1;
 
 export const INIT_WIDTH = 26;

@@ -30,13 +30,13 @@ export const Selectors = withStyles(styles)(
 
         return (
             <div className={classes.root}>
-                <h5 className={classes.label}>Скорость в&nbsp;секундах:</h5>
+                <h5 className={classes.label}>Время между&nbsp;итерациями:</h5>
                 <Slider
                     defaultValue={INIT_SPEED}
                     getAriaValueText={value => value}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
-                    step={0.2}
+                    step={0.1}
                     min={MIN_MAP_SPEED}
                     max={MAX_MAP_SPEED}
                     onChange={(_, value) => setSpeed(value * 1000)}

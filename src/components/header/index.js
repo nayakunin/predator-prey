@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { mapSelector } from '../../redux/selectors';
+import { restart } from '../../redux/actions';
+import { ReactComponent as Switch } from './switch.svg';
 import styles from './styles.module.css';
 
 export const Header = () => {
+    const dispatch = useDispatch();
+    const mapState = useSelector(mapSelector);
+
+    const handleChange = useCallback(() => {
+        dispatch(restart(!mapState.isPreyOnly));
+    }, [dispatch, mapState]);
+
     return (
         <header className={styles.header}>
-            <h1 className={styles.title}>Модель хищник&ndash;жертва</h1>
-            {/* <ul className={styles.menu}>
-                <li className={styles.menu__option}>Point1</li>
-                <li className={styles.menu__option}>Point2</li>
-                <li className={styles.menu__option}>Point3</li>
-            </ul> */}
+            <h1 className={styles.title}>{
+                mapState.isPreyOnly
+                    ? 'Модель жертва' : 'Модель хищник-жертва'}
+            </h1>
+            <div className={styles.switch} onClick={handleChange}>
+                <Switch />
+            </div>
         </header>
     );
 };

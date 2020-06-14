@@ -16,11 +16,12 @@ export const step = () => {
     };
 };
 
-export const restart = () => {
+export const restart = (isPreyOnly = false) => {
     return {
         type: MAP_RESTART,
-    }
-}
+        payload: isPreyOnly,
+    };
+};
 
 export const addPredator = () => {
     return {

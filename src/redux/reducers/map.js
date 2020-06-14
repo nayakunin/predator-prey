@@ -43,22 +43,28 @@ const initialState = {
     nextMap: [],
     isMapCreated: false,
     isMapEmpty: true,
+    isPreyOnly: false,
 };
 
 export const map = (state = initialState, action) => {
     switch (action.type) {
         case MAP_INIT:
-        case MAP_RESTART:
             const initialMap = generate2dArray(state.size.width, state.size.height);
             return {
                 ...state,
-                iteration: 0,
-                preysCount: 1,
-                preyData: [1],
-                chartLabels: ['0'],
                 currentMap: copy(initialMap),
                 nextMap: initialMap,
                 isMapCreated: true,
+            };
+        case MAP_RESTART:
+            const restartMap = generate2dArray(state.size.width, state.size.height);
+            return {
+                ...initialState,
+                currentMap: copy(restartMap),
+                nextMap: restartMap,
+                isMapCreated: true,
+                isPreyOnly: action.payload,
+                speed: state.speed,
             };
         case MAP_ADD_PREDATOR:
             state.nextMap[_.random(state.size.width - 1)][_.random(state.size.height - 1)] = 'predator';
@@ -91,7 +97,7 @@ export const map = (state = initialState, action) => {
                                     break;
                             }
                         }
-                    } else if (state.currentMap[col][row] === 'predator') {
+                    } else if (!state.isPreyOnly && state.currentMap[col][row] === 'predator') {
                         const newPoses = getNewPredatorPos(col, row, state.nextMap);
                         if (!newPoses) {
                             state.nextMap[col][row] = 'empty';
@@ -113,9 +119,22 @@ export const map = (state = initialState, action) => {
                     }
                 });
             });
+            if (state.isPreyOnly) {
+                const flatArray = _.flattenDeep(state.nextMap)
+                const deltaPreys = flatArray.reduce((sum, curr) => curr === 'prey' ? sum + 1 : sum, 0);
+                return {
+                    ...state,
+                    iteration: state.iteration + 1,
+                    preysCount: deltaPreys,
+                    preyData: [...state.preyData, deltaPreys],
+                    chartLabels: [...state.chartLabels, `${state.iteration + 1}`],
+                    currentMap: copy(state.nextMap),
+                    nextMap: state.nextMap,
+                };
+            }
             const flatArray = _.flattenDeep(state.nextMap)
-            const deltaPreys = flatArray.reduce((sum, curr) => curr === 'prey' ? sum + 1: sum, 0);
-            const deltaPredators = flatArray.reduce((sum, curr) => curr === 'predator' ? sum + 1: sum, 0);
+            const deltaPreys = flatArray.reduce((sum, curr) => curr === 'prey' ? sum + 1 : sum, 0);
+            const deltaPredators = flatArray.reduce((sum, curr) => curr === 'predator' ? sum + 1 : sum, 0);
             return {
                 ...state,
                 iteration: state.iteration + 1,

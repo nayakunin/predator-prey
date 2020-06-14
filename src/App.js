@@ -1,10 +1,4 @@
 import React, { useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
   import { initMap, step, addPredator } from './redux/actions';
   import { Map } from './components/map';
@@ -23,7 +17,7 @@ export const App = (props) => {
             // World loop
             const interval = setInterval(() => {
                 dispatch(step());
-                if (mapState.iteration % 25 === 0) {
+                if (!mapState.isPreyOnly && mapState.iteration % 25 === 0) {
                     dispatch(addPredator());
                 }
             }, mapState.speed);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import _ from 'lodash';
 import { mapSelector } from '../../redux/selectors';
 import styles from './styles.module.css';
 

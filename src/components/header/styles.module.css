@@ -7,20 +7,20 @@
     margin-bottom: 24px;
 }
 
-.menu {
-    height: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-    margin: 0;
-}
-
-.menu__option {
-    height: 100%;
-    margin-left: 12px;
-    text-align: center;
-}
-
 .title {
     margin: 0;
+}
+
+.switch {
+    width: 30px;
+    height: 30px;
+    content: '';
+    fill: white;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .title {
+        font-size: 24px;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { initMap, step } from './redux/actions';
+import { initMap, step, addPredator } from './redux/actions';
 import { Map } from './components/map';
 import { Selectors } from './components/selectors';
 import { Header } from './components/header';
@@ -17,6 +17,9 @@ export const App = (props) => {
             // World loop
             const interval = setInterval(() => {
                 dispatch(step());
+                if (mapState.iteration % 25 === 0) {
+                    dispatch(addPredator());
+                }
             }, mapState.speed);
             return () => clearInterval(interval);
         } else {
@@ -38,7 +41,8 @@ export const App = (props) => {
                 <section className={styles['stats-container']}>
                     <div className={styles['stats-block']}>
                         <Chart
-                            data={mapState.chartData}
+                            preys={mapState.preyData}
+                            predators={mapState.predatorData}
                             labels={mapState.chartLabels}
                         />
                     </div>

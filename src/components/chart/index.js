@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-export const Chart = ({ data, labels }) => {
+export const Chart = ({ preys, predators, labels }) => {
     return (
         <Line
             data={{
@@ -9,8 +9,13 @@ export const Chart = ({ data, labels }) => {
                 datasets: [
                     {
                         label: 'Жертвы',
-                        data: data,
+                        data: preys,
                         backgroundColor: '#e9c46a',
+                    },
+                    {
+                        label: 'Хищники',
+                        data: predators,
+                        backgroundColor: '#e76f51',
                     }
                 ]
             }}

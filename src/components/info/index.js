@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import _ from 'lodash';
 import { mapSelector } from '../../redux/selectors';
 import styles from './styles.module.css';
 
@@ -9,14 +10,7 @@ export const Info = (props) => {
 
 
     useEffect(() => {
-        if (mapState.chartData.length > 1) {
-            setPreysAvg(
-                mapState.chartData.slice(-100, -1)
-                    .reduce((sum, curr) => sum + curr)
-                    / (mapState.chartData.length < 100
-                    ? mapState.chartData.length : 100));
-        }
-    }, [mapState.chartData]);
+    }, [mapState.preyData, mapState.predatorData]);
 
     return (
         <div className={styles.root}>

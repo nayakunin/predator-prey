@@ -1,13 +1,17 @@
+import _ from 'lodash';
+
 import {
     MAP_STEP,
     MAP_INIT,
     MAP_RESTART,
+    MAP_ADD_PREDATOR,
     MAP_CHANGE_SPEED,
 } from '../actions'
 
 import {
     copy,
-    getNewPos,
+    getNewPreyPos,
+    getNewPredatorPos,
     generate2dArray,
 } from '../../utils';
 
@@ -22,7 +26,9 @@ import {
 const initialState = {
     iteration: 0,
     preysCount: 0,
-    chartData: [0],
+    predatorsCount: 0,
+    preyData: [0],
+    predatorData: [0],
     chartLabels: ['0'],
     size: {
         width: INIT_WIDTH,
@@ -47,29 +53,35 @@ export const map = (state = initialState, action) => {
             return {
                 ...state,
                 iteration: 0,
-                preysCount: 0,
-                chartData: [0],
+                preysCount: 1,
+                preyData: [1],
                 chartLabels: ['0'],
                 currentMap: copy(initialMap),
                 nextMap: initialMap,
                 isMapCreated: true,
             };
+        case MAP_ADD_PREDATOR:
+            state.nextMap[_.random(state.size.width - 1)][_.random(state.size.height - 1)] = 'predator';
+            return {
+                ...state,
+                currentMap: copy(state.nextMap),
+                nextMap: state.nextMap,
+                predatorsCount: state.predatorsCount + 1,
+                predatorData: [...state.predatorData, state.predatorsCount + 1],
+            }
         case MAP_STEP:
-            let deltaPreys = 0;
             state.currentMap.forEach((col_arr, col) => {
                 col_arr.forEach((_, row) => {
-                    if (state.currentMap[col][row] !== 'empty') {
-                        const newPoses = getNewPos(col, row, state.nextMap);
+                    if (state.currentMap[col][row] === 'prey') {
+                        const newPoses = getNewPreyPos(col, row, state.nextMap);
                         if (!newPoses) {
                             state.nextMap[col][row] = 'empty';
-                            deltaPreys--;
                         } else {
                             switch (newPoses.length) {
                                 case 2:
                                     newPoses.forEach((pos) => {
                                         state.nextMap[pos[0]][pos[1]] = 'prey';
                                     });
-                                    deltaPreys++;
                                     break;
                                 case 1:
                                     state.nextMap[newPoses[0][0]][newPoses[0][1]] = 'prey';
@@ -79,15 +91,39 @@ export const map = (state = initialState, action) => {
                                     break;
                             }
                         }
+                    } else if (state.currentMap[col][row] === 'predator') {
+                        const newPoses = getNewPredatorPos(col, row, state.nextMap);
+                        if (!newPoses) {
+                            state.nextMap[col][row] = 'empty';
+                        } else {
+                            switch (newPoses.length) {
+                                case 2:
+                                    newPoses.forEach((pos) => {
+                                        state.nextMap[pos[0]][pos[1]] = 'predator';
+                                    });
+                                    break;
+                                case 1:
+                                    state.nextMap[newPoses[0][0]][newPoses[0][1]] = 'predator';
+                                    state.nextMap[col][row] = 'empty';
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
                 });
             });
+            const flatArray = _.flattenDeep(state.nextMap)
+            const deltaPreys = flatArray.reduce((sum, curr) => curr === 'prey' ? sum + 1: sum, 0);
+            const deltaPredators = flatArray.reduce((sum, curr) => curr === 'predator' ? sum + 1: sum, 0);
             return {
                 ...state,
                 iteration: state.iteration + 1,
-                preysCount: state.preysCount + deltaPreys,
+                preysCount: deltaPreys,
+                predatorsCount: deltaPredators,
+                preyData: [...state.preyData, deltaPreys],
+                predatorData: [...state.predatorData, deltaPredators],
                 chartLabels: [...state.chartLabels, `${state.iteration + 1}`],
-                chartData: [...state.chartData, state.preysCount + deltaPreys],
                 currentMap: copy(state.nextMap),
                 nextMap: state.nextMap,
             };

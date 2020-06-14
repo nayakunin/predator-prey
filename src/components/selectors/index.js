@@ -38,7 +38,7 @@ export const Selectors = withStyles(styles)(
 
         return (
             <div className={classes.root}>
-                <h5 className={classes.label}>Время между&nbsp;итерациями:</h5>
+                <h4 className={classes.label}>Время между&nbsp;итерациями:</h4>
                 <Slider
                     defaultValue={INIT_SPEED}
                     getAriaValueText={value => value}

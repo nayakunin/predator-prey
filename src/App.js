@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
   import { Header } from './components/header';
   import { LineChart } from './components/line-chart';
   import { Info } from './components/info';
+  import { Description } from './components/description';
   import styles from './App.module.css';
 
 export const App = (props) => {
@@ -41,7 +42,6 @@ export const App = (props) => {
                 <section className={styles['map-container']}>
                     <Map
                         map={mapState.currentMap}
-                        isMapCreated={mapState.isMapCreated}
                     />
                 </section>
                 <section className={styles['stats-container']}>
@@ -57,6 +57,9 @@ export const App = (props) => {
                     </div>
                     <div className={styles['stats-block']}>
                         <Info />
+                    </div>
+                    <div className={styles['stats-block']}>
+                        <Description />
                     </div>
                 </section>
             </main>

@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {
     MAP_STEP,
     MAP_INIT,
-    MAP_RESTART,
     MAP_ADD_PREDATOR,
     MAP_CHANGE_SPEED,
 } from '../actions'
@@ -43,7 +42,6 @@ const initialState = {
     nextMap: [],
     isMapCreated: false,
     isMapEmpty: true,
-    isPreyOnly: false,
 };
 
 export const map = (state = initialState, action) => {
@@ -55,16 +53,6 @@ export const map = (state = initialState, action) => {
                 currentMap: copy(initialMap),
                 nextMap: initialMap,
                 isMapCreated: true,
-            };
-        case MAP_RESTART:
-            const restartMap = generate2dArray(state.size.width, state.size.height);
-            return {
-                ...initialState,
-                currentMap: copy(restartMap),
-                nextMap: restartMap,
-                isMapCreated: true,
-                isPreyOnly: action.payload,
-                speed: state.speed,
             };
         case MAP_ADD_PREDATOR:
             state.nextMap[_.random(state.size.width - 1)][_.random(state.size.height - 1)] = 'predator';
@@ -97,7 +85,7 @@ export const map = (state = initialState, action) => {
                                     break;
                             }
                         }
-                    } else if (!state.isPreyOnly && state.currentMap[col][row] === 'predator') {
+                    } else if (localStorage.getItem('isPreyOnly') === '0' && state.currentMap[col][row] === 'predator') {
                         const newPoses = getNewPredatorPos(col, row, state.nextMap);
                         if (!newPoses) {
                             state.nextMap[col][row] = 'empty';
@@ -119,7 +107,7 @@ export const map = (state = initialState, action) => {
                     }
                 });
             });
-            if (state.isPreyOnly) {
+            if (localStorage.getItem('isPreyOnly') === '1') {
                 const flatArray = _.flattenDeep(state.nextMap)
                 const deltaPreys = flatArray.reduce((sum, curr) => curr === 'prey' ? sum + 1 : sum, 0);
                 return {

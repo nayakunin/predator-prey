@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { mapSelector } from '../../redux/selectors';
@@ -5,7 +6,7 @@ import cx from 'classnames';
 import Button from '@material-ui/core/Button';
 import { Slider } from '../slider';
 import { withStyles } from '@material-ui/core';
-import { changeSpeed, restart } from '../../redux/actions';
+import { changeSpeed } from '../../redux/actions';
 import {
     MAX_MAP_SPEED,
     MIN_MAP_SPEED,
@@ -21,8 +22,15 @@ export const Selectors = withStyles(styles)(
         const [speed, setSpeed] = useState(mapState.speed);
 
         const handleRestart = useCallback(() => {
-            dispatch(restart());
-        }, [dispatch])
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+        }, []);
+
+        const handleChange = useCallback(() => {
+            localStorage.setItem('isPreyOnly', localStorage.getItem('isPreyOnly') === '0' ? '1' : '0');
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+        }, []);
 
         useEffect(() => {
             dispatch(changeSpeed(speed));
@@ -41,12 +49,20 @@ export const Selectors = withStyles(styles)(
                     max={MAX_MAP_SPEED}
                     onChange={(_, value) => setSpeed(value * 1000)}
                 />
-                <Button
-                    className={cx(classes.button_apply, className)}
-                    onClick={handleRestart}
-                >
-                    Перезапустить
+                <div className={classes.button__container}>
+                    <Button
+                        className={cx(classes.button_apply, className)}
+                        onClick={handleRestart}
+                    >
+                        Перезапустить
                 </Button>
+                    <Button
+                        className={cx(classes.button_apply, className)}
+                        onClick={handleChange}
+                    >
+                        Поменять модель
+                </Button>
+                </div>
             </div >
         )
     });

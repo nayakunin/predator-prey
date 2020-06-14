@@ -13,11 +13,17 @@ export const App = (props) => {
     const mapState = useSelector(state => state.map);
 
     useEffect(() => {
+        if (!localStorage.length) {
+            localStorage.setItem('isPreyOnly', '0');
+        }
+    })
+
+    useEffect(() => {
         if (mapState.isMapCreated) {
             // World loop
             const interval = setInterval(() => {
                 dispatch(step());
-                if (!mapState.isPreyOnly && mapState.iteration % 25 === 0) {
+                if (localStorage.getItem('isPreyOnly') === '0' && mapState.iteration % 25 === 0) {
                     dispatch(addPredator());
                 }
             }, mapState.speed);

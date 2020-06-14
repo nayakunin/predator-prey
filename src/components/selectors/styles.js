@@ -12,4 +12,8 @@ export default {
         display: 'inline',
         marginRight: '5px',
     },
+    button__container: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
 };

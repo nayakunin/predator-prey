@@ -2,22 +2,31 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 export const LineChart = ({ preys, predators, labels }) => {
+    const datasets = localStorage.getItem('isPreyOnly') === '0'
+        ? [
+            {
+                label: 'Жертвы',
+                data: preys,
+                backgroundColor: '#e9c46a',
+            },
+            {
+                label: 'Хищники',
+                data: predators,
+                backgroundColor: '#e76f51',
+            }
+        ] : [
+            {
+                label: 'Жертвы',
+                data: preys,
+                backgroundColor: '#e9c46a',
+            },
+        ]
+
     return (
         <Line
             data={{
                 labels: labels,
-                datasets: [
-                    {
-                        label: 'Жертвы',
-                        data: preys,
-                        backgroundColor: '#e9c46a',
-                    },
-                    {
-                        label: 'Хищники',
-                        data: predators,
-                        backgroundColor: '#e76f51',
-                    }
-                ]
+                datasets, 
             }}
             options={{
                 legend: {

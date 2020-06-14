@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
-import styles from './App.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { initMap, step, addPredator } from './redux/actions';
-import { Map } from './components/map';
-import { Selectors } from './components/selectors';
-import { Header } from './components/header';
-import { LineChart } from './components/line-chart';
-import { BarChart } from './components/bar-chart';
-import { Info } from './components/info';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+  import { useDispatch, useSelector } from "react-redux";
+  import { initMap, step, addPredator } from './redux/actions';
+  import { Map } from './components/map';
+  import { Selectors } from './components/selectors';
+  import { Header } from './components/header';
+  import { LineChart } from './components/line-chart';
+  import { Info } from './components/info';
+  import styles from './App.module.css';
 
 export const App = (props) => {
     const dispatch = useDispatch();

@@ -34,7 +34,7 @@ body {
     justify-content: flex-start;
     align-items: flex-start;
     overflow-y: scroll;
-    max-height: 75vh;
+    max-height: 90vh;
 }
 
 .stats-block {
